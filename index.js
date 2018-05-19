@@ -23,6 +23,7 @@ ideaForm.addEventListener('submit', function(e) {
 });
 
 ideaList.addEventListener('click', removeIdea);
+ideaList.addEventListener('click', upVote);
 
 function addIdea() {
   var title = titleInput.value;
@@ -45,7 +46,7 @@ function displayIdeas(array) {
       <h2>${array[i].title}</h2>
       <img src="./images/delete-hover.svg" alt="delete icon" id="delete-button">
       <p>${array[i].body}</p>
-      <img src="./images/upvote.svg" alt="upvote icon">
+      <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
       <img src="./images/downvote.svg" alt="downvot icon">
       <p>quality: ${array[i].quality}</p>
     `;
@@ -56,9 +57,20 @@ function displayIdeas(array) {
 
 function removeIdea(e) {
   if (e.target.id === 'delete-button') {
-    console.log(e.target.parentElement.dataset.index);
     ideasArray.splice(e.target.parentElement.dataset.index, 1);
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
+  }
+}
+
+function upVote(e) {
+  if(e.target.id === "up-vote") {
+    console.log("heyyyy")
+    // 1. Get access to parent element with data-index (same as array index)
+
+    // 2. Use a conditional to change value of quality property in the array
+
+    // 3. Repopulate display by re rendering the ideas
+
   }
 }
