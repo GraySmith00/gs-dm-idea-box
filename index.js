@@ -52,7 +52,6 @@ function displayIdeas(array) {
       <p>quality: ${array[i].quality}</p>
     `;
     ideaList.prepend(ideaElement);
-    
   }
 }
 
@@ -65,25 +64,41 @@ function removeIdea(e) {
 }
 
 function upVote(e) {
-  if(e.target.id === "up-vote") {
+  if (e.target.id === 'up-vote') {
     var index = e.target.parentElement.dataset.index;
-    if(ideasArray[index].quality === "swill") {
-      ideasArray[index].quality = "plausible";
-    } else if (ideasArray[index].quality === "plausible") {
-      ideasArray[index].quality = "genius";
-    } 
+    if (ideasArray[index].quality === 'swill') {
+      ideasArray[index].quality = 'plausible';
+    } else if (ideasArray[index].quality === 'plausible') {
+      ideasArray[index].quality = 'genius';
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    displayIdeas(ideasArray);
+  }
+  contentEditable();
+}
+
+function downVote(e) {
+  if (e.target.id === 'down-vote') {
+    var index = e.target.parentElement.dataset.index;
+    if (ideasArray[index].quality === 'genius') {
+      ideasArray[index].quality = 'plausible';
+    } else if (ideasArray[index].quality === 'plausible') {
+      ideasArray[index].quality = 'swill';
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
   }
 }
 
-function downVote(e) {
-  if(e.target.id === "down-vote") {
-    var index = e.target.parentElement.dataset.index;
-    if(ideasArray[index].quality === "genius") {
-      ideasArray[index].quality = "plausible";
-    } else if (ideasArray[index].quality === "plausible") {
-      ideasArray[index].quality = "swill";
-    }
-    displayIdeas(ideasArray);
-  }  
+function contentEditable() {
+  // console.log(ideaList.childNodes[0].attributes[1].value);
+  // console.log(ideaList.childNodes[0]);
+  // var index = ideaList.childNodes[1].attributes[1].value;
+  // console.log(index);
+  // console.log(ideaList.childNodes[0].children[0].innerText);
+  // ideasArray[i].title =
+  // 1. Get to then article element index
+  // 2. Set the ideasArray[index].title to the article element h2.innerText
+  // 3. Save to local storage
+  // 4. Re render the ideasArray
 }
