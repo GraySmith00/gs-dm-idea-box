@@ -24,6 +24,7 @@ ideaForm.addEventListener('submit', function(e) {
 
 ideaList.addEventListener('click', removeIdea);
 ideaList.addEventListener('click', upVote);
+ideaList.addEventListener('click', downVote);
 
 function addIdea() {
   var title = titleInput.value;
@@ -43,15 +44,15 @@ function displayIdeas(array) {
     ideaElement.setAttribute('class', 'idea-element');
     ideaElement.setAttribute('data-index', i);
     ideaElement.innerHTML = `
-      <h2>${array[i].title}</h2>
+      <h2 contenteditable="true">${array[i].title}</h2>
       <img src="./images/delete-hover.svg" alt="delete icon" id="delete-button">
-      <p>${array[i].body}</p>
+      <p contenteditable="true">${array[i].body}</p>
       <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
-      <img src="./images/downvote.svg" alt="downvot icon">
+      <img src="./images/downvote.svg" alt="downvot icon" id="down-vote">
       <p>quality: ${array[i].quality}</p>
     `;
     ideaList.prepend(ideaElement);
-    console.log(ideasArray);
+    
   }
 }
 
@@ -65,20 +66,24 @@ function removeIdea(e) {
 
 function upVote(e) {
   if(e.target.id === "up-vote") {
-
-    // 1. Get access to parent element with data-index (same as array index)
     var index = e.target.parentElement.dataset.index;
-    // 2. Use a conditional to change value of quality property in the array
     if(ideasArray[index].quality === "swill") {
       ideasArray[index].quality = "plausible";
     } else if (ideasArray[index].quality === "plausible") {
       ideasArray[index].quality = "genius";
     } 
-    console.log();
-    // 3. Repopulate display by re rendering the ideas
     displayIdeas(ideasArray);
-
   }
 }
 
-
+function downVote(e) {
+  if(e.target.id === "down-vote") {
+    var index = e.target.parentElement.dataset.index;
+    if(ideasArray[index].quality === "genius") {
+      ideasArray[index].quality = "plausible";
+    } else if (ideasArray[index].quality === "plausible") {
+      ideasArray[index].quality = "swill";
+    }
+    displayIdeas(ideasArray);
+  }  
+}
