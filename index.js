@@ -65,12 +65,20 @@ function removeIdea(e) {
 
 function upVote(e) {
   if(e.target.id === "up-vote") {
-    console.log("heyyyy")
+
     // 1. Get access to parent element with data-index (same as array index)
-
+    var index = e.target.parentElement.dataset.index;
     // 2. Use a conditional to change value of quality property in the array
-
+    if(ideasArray[index].quality === "swill") {
+      ideasArray[index].quality = "plausible";
+    } else if (ideasArray[index].quality === "plausible") {
+      ideasArray[index].quality = "genius";
+    } 
+    console.log();
     // 3. Repopulate display by re rendering the ideas
+    displayIdeas(ideasArray);
 
   }
 }
+
+
