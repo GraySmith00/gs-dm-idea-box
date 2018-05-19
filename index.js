@@ -25,6 +25,22 @@ ideaForm.addEventListener('submit', function(e) {
 ideaList.addEventListener('click', removeIdea);
 ideaList.addEventListener('click', upVote);
 ideaList.addEventListener('click', downVote);
+ideaList.addEventListener('keyup', function(e) {
+  contentEditable(e, 'H2');
+  contentEditable(e, 'P');
+});
+
+ideaList.addEventListener('keydown', function(e) {
+  if (e.keyCode === 13) {
+    saveContentEdit(e);
+  }
+});
+
+ideaList.addEventListener('mousedown', function(e) {
+  if (e.target.className !== 'idea-title') {
+    saveContentEdit(e);
+  }
+});
 
 function addIdea() {
   var title = titleInput.value;
@@ -44,7 +60,7 @@ function displayIdeas(array) {
     ideaElement.setAttribute('class', 'idea-element');
     ideaElement.setAttribute('data-index', i);
     ideaElement.innerHTML = `
-      <h2 contenteditable="true">${array[i].title}</h2>
+      <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
       <img src="./images/delete-hover.svg" alt="delete icon" id="delete-button">
       <p contenteditable="true">${array[i].body}</p>
       <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
@@ -74,7 +90,6 @@ function upVote(e) {
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
   }
-  contentEditable();
 }
 
 function downVote(e) {
@@ -90,15 +105,26 @@ function downVote(e) {
   }
 }
 
-function contentEditable() {
-  // console.log(ideaList.childNodes[0].attributes[1].value);
-  // console.log(ideaList.childNodes[0]);
-  // var index = ideaList.childNodes[1].attributes[1].value;
-  // console.log(index);
-  // console.log(ideaList.childNodes[0].children[0].innerText);
-  // ideasArray[i].title =
-  // 1. Get to then article element index
-  // 2. Set the ideasArray[index].title to the article element h2.innerText
-  // 3. Save to local storage
-  // 4. Re render the ideasArray
+var editIndex;
+
+function contentEditable(e, nodeName) {
+  if (e.target.nodeName === nodeName) {
+    editIndex = e.target.parentElement.dataset.index;
+  }
+}
+
+function saveContentEdit(e) {
+  if (e.target.nodeName === 'H2') {
+    if (e.target.innerText !== ideasArray[editIndex].title) {
+      ideasArray[editIndex].title = e.target.innerText;
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    displayIdeas(ideasArray);
+  } else if (e.target.nodeName === 'P') {
+    if (e.target.innerText !== ideasArray[editIndex].body) {
+      ideasArray[editIndex].body = e.target.innerText;
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    displayIdeas(ideasArray);
+  }
 }
