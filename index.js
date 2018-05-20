@@ -25,6 +25,22 @@ ideaForm.addEventListener('submit', function(e) {
 ideaList.addEventListener('click', removeIdea);
 ideaList.addEventListener('click', upVote);
 ideaList.addEventListener('click', downVote);
+ideaList.addEventListener('keyup', function(e) {
+  contentEditable(e, 'H2');
+  contentEditable(e, 'P');
+});
+
+ideaList.addEventListener('keydown', function(e) {
+  if (e.keyCode === 13) {
+    saveContentEdit(e);
+  }
+});
+
+ideaList.addEventListener('mousedown', function(e) {
+  if (e.target.className !== 'idea-title') {
+    saveContentEdit(e);
+  }
+});
 
 function addIdea() {
   var title = titleInput.value;
@@ -44,7 +60,7 @@ function displayIdeas(array) {
     ideaElement.setAttribute('class', 'idea-element');
     ideaElement.setAttribute('data-index', i);
     ideaElement.innerHTML = `
-      <h2 contenteditable="true">${array[i].title}</h2>
+      <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
       <img src="./images/delete-hover.svg" alt="delete icon" id="delete-button">
       <p contenteditable="true">${array[i].body}</p>
       <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
@@ -52,7 +68,6 @@ function displayIdeas(array) {
       <p>quality: ${array[i].quality}</p>
     `;
     ideaList.prepend(ideaElement);
-    
   }
 }
 
@@ -65,25 +80,51 @@ function removeIdea(e) {
 }
 
 function upVote(e) {
-  if(e.target.id === "up-vote") {
+  if (e.target.id === 'up-vote') {
     var index = e.target.parentElement.dataset.index;
-    if(ideasArray[index].quality === "swill") {
-      ideasArray[index].quality = "plausible";
-    } else if (ideasArray[index].quality === "plausible") {
-      ideasArray[index].quality = "genius";
-    } 
+    if (ideasArray[index].quality === 'swill') {
+      ideasArray[index].quality = 'plausible';
+    } else if (ideasArray[index].quality === 'plausible') {
+      ideasArray[index].quality = 'genius';
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
   }
 }
 
 function downVote(e) {
-  if(e.target.id === "down-vote") {
+  if (e.target.id === 'down-vote') {
     var index = e.target.parentElement.dataset.index;
-    if(ideasArray[index].quality === "genius") {
-      ideasArray[index].quality = "plausible";
-    } else if (ideasArray[index].quality === "plausible") {
-      ideasArray[index].quality = "swill";
+    if (ideasArray[index].quality === 'genius') {
+      ideasArray[index].quality = 'plausible';
+    } else if (ideasArray[index].quality === 'plausible') {
+      ideasArray[index].quality = 'swill';
     }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
-  }  
+  }
+}
+
+var editIndex;
+
+function contentEditable(e, nodeName) {
+  if (e.target.nodeName === nodeName) {
+    editIndex = e.target.parentElement.dataset.index;
+  }
+}
+
+function saveContentEdit(e) {
+  if (e.target.nodeName === 'H2') {
+    if (e.target.innerText !== ideasArray[editIndex].title) {
+      ideasArray[editIndex].title = e.target.innerText;
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    displayIdeas(ideasArray);
+  } else if (e.target.nodeName === 'P') {
+    if (e.target.innerText !== ideasArray[editIndex].body) {
+      ideasArray[editIndex].body = e.target.innerText;
+    }
+    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    displayIdeas(ideasArray);
+  }
 }
