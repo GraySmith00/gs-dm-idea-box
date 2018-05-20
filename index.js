@@ -36,10 +36,8 @@ ideaList.addEventListener('keydown', function(e) {
   }
 });
 
-ideaList.addEventListener('mousedown', function(e) {
-  if (e.target.className !== 'idea-title') {
-    saveContentEdit(e);
-  }
+ideaList.addEventListener('focusout', function(e) {
+  saveContentEdit(e);
 });
 
 function addIdea() {
