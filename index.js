@@ -10,7 +10,8 @@ ideasArray = JSON.parse(localStorage.getItem('Ideas')) || [];
 
 displayIdeas(ideasArray);
 
-function Idea(title, body, quality) {
+function Idea(id, title, body, quality) {
+  this.id = id;
   this.title = title;
   this.body = body;
   this.quality = quality || 'swill';
@@ -41,10 +42,11 @@ ideaList.addEventListener('focusout', function(e) {
 });
 
 function addIdea() {
+  var id = randomHash();
   var title = titleInput.value;
   var body = bodyInput.value;
   var quality = 'swill';
-  var ideaObject = new Idea(title, body, quality);
+  var ideaObject = new Idea(id, title, body, quality);
   ideasArray.push(ideaObject);
 
   displayIdeas(ideasArray);
@@ -126,3 +128,11 @@ function saveContentEdit(e) {
     displayIdeas(ideasArray);
   }
 }
+
+function randomHash() {
+  var date = Date.now();
+  var random = Math.floor(Math.random() * 10000);
+  return date + random;
+}
+
+console.log(randomHash());
