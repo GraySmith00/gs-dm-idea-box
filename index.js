@@ -139,9 +139,13 @@ function randomHash() {
 
 function search() {
   var searchMatchesArray = ideasArray.filter(function(idea) {
-    return idea.title.substr(0, searchInput.value.length).toLowerCase() === searchInput.value.substr(0, searchInput.value.length).toLowerCase();
+    return textMatch(idea.title) || textMatch(idea.body)
   })
   displayIdeas(searchMatchesArray);
+}
+
+function textMatch(property) {
+  return property.substr(0, searchInput.value.length).toLowerCase() === searchInput.value.substr(0, searchInput.value.length).toLowerCase();
 }
   
 
