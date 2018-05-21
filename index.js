@@ -41,6 +41,8 @@ ideaList.addEventListener('focusout', function(e) {
   saveContentEdit(e);
 });
 
+searchInput.addEventListener('keyup', search);
+
 function addIdea() {
   var id = randomHash();
   var title = titleInput.value;
@@ -135,4 +137,11 @@ function randomHash() {
   return date + random;
 }
 
-console.log(randomHash());
+function search() {
+  var searchMatchesArray = ideasArray.filter(function(idea) {
+    return idea.title.substr(0, searchInput.value.length).toLowerCase() === searchInput.value.substr(0, searchInput.value.length).toLowerCase();
+  })
+  displayIdeas(searchMatchesArray);
+}
+  
+
