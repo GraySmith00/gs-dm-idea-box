@@ -66,7 +66,7 @@ function displayIdeas(array) {
         <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
         <button id="delete-button" class="icon delete-button"></button>
       </header>
-      <p contenteditable="true">${array[i].body}</p>
+      <p contenteditable="true" class="idea-body">${array[i].body}</p>
       <div class="quality">
         <button class="icon up-vote" id="up-vote"></button>
         <button class="icon down-vote" id="down-vote"></button>
