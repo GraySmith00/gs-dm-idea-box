@@ -5,8 +5,9 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif; 
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
+  font-size: 20px;
 }
 
 h1,
@@ -48,10 +49,6 @@ input {
   outline: none;
 }
 
-img {
-  width: 20px;
-}
-
 .page-container {
   display: flex;
   flex-direction: column;
@@ -72,7 +69,7 @@ img {
 }
 
 .input-container form {
-  width: 35%;
+  width: 45%;
   display: flex;
   flex-direction: column;
 }
@@ -83,6 +80,7 @@ img {
   font-size: 1.1rem;
   line-height: 1.5rem;
   margin-top: 20px;
+  outline: none;
   /*height: 60px;*/
 }
 
@@ -103,7 +101,7 @@ img {
 }
 
 .display-container form {
-  width: 35%;
+  width: 45%;
 }
 
 .display-container form input {
@@ -118,9 +116,9 @@ img {
 }
 
 .display-container article {
-  width: 35%;
+  width: 45%;
   margin-top: 20px;
-  border: 2px solid gray;
+  border-bottom: 2px solid #d1d3d4;
   padding: 10px;
 }
 
@@ -134,27 +132,24 @@ img {
 .article-header h2 {
   font-weight: 700;
   font-size: 1.5rem;
+  color: #6d6e71;
 }
 
-.article-header img {
-
-}
-
-.article-header img:hover {
-  color: ;
+.icon {
+  background-repeat: no-repeat;
+  background-color: transparent;
+  height: 28px;
+  width: 28px;
+  border: none;
 }
 
 .delete-button {
   background-image: url('./images/delete.svg');
-  background-repeat: no-repeat;
-  width: 0;
-  height: 0;
 }
 
 .delete-button:hover {
   background-image: url('./images/delete-hover.svg');
-  background-repeat: no-repeat;
-} 
+}
 
 .quality {
   display: flex;
@@ -165,6 +160,28 @@ img {
   margin-top: 15px;
 }
 
+.up-vote {
+  background-image: url('./images/upvote.svg');
+}
+
+.up-vote:hover {
+  background-image: url('./images/upvote-hover.svg');
+}
+
+.down-vote {
+  background-image: url('./images/downvote.svg');
+}
+
+.down-vote:hover {
+  background-image: url('./images/downvote-hover.svg');
+}
+
 .quality p {
   color: #6d6e71;
+}
+
+@media only screen and (max-width: 900px) {
+  .quality {
+    width: 100%;
+  }
 }
