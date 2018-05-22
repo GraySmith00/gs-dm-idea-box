@@ -48,6 +48,16 @@ function addIdea() {
   var title = titleInput.value;
   var body = bodyInput.value;
   var quality = 'swill';
+  if (title.length === 0 && body.length === 0) {
+    alert('Ooooops!!! Looks like you need some inputs!');
+    return;
+  } else if (title.length === 0) {
+    alert('Ooooops!!! Looks like you need a title!');
+    return;
+  } else if (body.length === 0) {
+    alert('Ooooops!!! Looks like you left out a body!');
+    return;
+  }
   var ideaObject = new Idea(id, title, body, quality);
   ideasArray.push(ideaObject);
 
@@ -79,9 +89,12 @@ function displayIdeas(array) {
 
 function removeIdea(e) {
   if (e.target.id === 'delete-button') {
-    ideasArray.splice(e.target.parentElement.parentElement.dataset.index, 1);
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
+    var confirmResponse = confirm('Are you sure you want to delete this item?');
+    if (confirmResponse) {
+      ideasArray.splice(e.target.parentElement.parentElement.dataset.index, 1);
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+      displayIdeas(ideasArray);
+    }
   }
 }
 
