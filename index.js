@@ -62,12 +62,16 @@ function displayIdeas(array) {
     ideaElement.setAttribute('class', 'idea-element');
     ideaElement.setAttribute('data-index', i);
     ideaElement.innerHTML = `
-      <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
-      <img src="./images/delete-hover.svg" alt="delete icon" id="delete-button">
+      <header class="article-header">
+        <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
+        <button id="delete-button" class="icon delete-button"></button>
+      </header>
       <p contenteditable="true">${array[i].body}</p>
-      <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
-      <img src="./images/downvote.svg" alt="downvot icon" id="down-vote">
-      <p>quality: ${array[i].quality}</p>
+      <div class="quality">
+        <button class="icon up-vote" id="up-vote"></button>
+        <button class="icon down-vote" id="down-vote"></button>
+        <p>quality: ${array[i].quality}</p>
+      </div>
     `;
     ideaList.prepend(ideaElement);
   }
@@ -75,7 +79,7 @@ function displayIdeas(array) {
 
 function removeIdea(e) {
   if (e.target.id === 'delete-button') {
-    ideasArray.splice(e.target.parentElement.dataset.index, 1);
+    ideasArray.splice(e.target.parentElement.parentElement.dataset.index, 1);
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
   }
@@ -83,7 +87,7 @@ function removeIdea(e) {
 
 function upVote(e) {
   if (e.target.id === 'up-vote') {
-    var index = e.target.parentElement.dataset.index;
+    var index = e.target.parentElement.parentElement.dataset.index;
     if (ideasArray[index].quality === 'swill') {
       ideasArray[index].quality = 'plausible';
     } else if (ideasArray[index].quality === 'plausible') {
@@ -96,7 +100,7 @@ function upVote(e) {
 
 function downVote(e) {
   if (e.target.id === 'down-vote') {
-    var index = e.target.parentElement.dataset.index;
+    var index = e.target.parentElement.parentElement.dataset.index;
     if (ideasArray[index].quality === 'genius') {
       ideasArray[index].quality = 'plausible';
     } else if (ideasArray[index].quality === 'plausible') {
@@ -108,23 +112,26 @@ function downVote(e) {
 }
 
 var editIndex;
+var editBodyIndex;
 
 function contentEditable(e, nodeName) {
   if (e.target.nodeName === nodeName) {
-    editIndex = e.target.parentElement.dataset.index;
+    editTitleIndex = e.target.parentElement.parentElement.dataset.index;
+    editBodyIndex = e.target.parentElement.dataset.index;
   }
 }
 
 function saveContentEdit(e) {
+  console.log(e.target.nodeName);
   if (e.target.nodeName === 'H2') {
-    if (e.target.innerText !== ideasArray[editIndex].title) {
-      ideasArray[editIndex].title = e.target.innerText;
+    if (e.target.innerText !== ideasArray[editTitleIndex].title) {
+      ideasArray[editTitleIndex].title = e.target.innerText;
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
   } else if (e.target.nodeName === 'P') {
-    if (e.target.innerText !== ideasArray[editIndex].body) {
-      ideasArray[editIndex].body = e.target.innerText;
+    if (e.target.innerText !== ideasArray[editBodyIndex].body) {
+      ideasArray[editBodyIndex].body = e.target.innerText;
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
@@ -139,13 +146,14 @@ function randomHash() {
 
 function search() {
   var searchMatchesArray = ideasArray.filter(function(idea) {
-    return textMatch(idea.title) || textMatch(idea.body)
-  })
+    return textMatch(idea.title) || textMatch(idea.body);
+  });
   displayIdeas(searchMatchesArray);
 }
 
 function textMatch(property) {
-  return property.substr(0, searchInput.value.length).toLowerCase() === searchInput.value.substr(0, searchInput.value.length).toLowerCase();
+  return (
+    property.substr(0, searchInput.value.length).toLowerCase() ===
+    searchInput.value.substr(0, searchInput.value.length).toLowerCase()
+  );
 }
-  
-
