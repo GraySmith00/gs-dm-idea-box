@@ -5,7 +5,47 @@
 }
 
 body {
+  font-family: 'Open Sans', sans-serif; 
   margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Slab', serif;
+}
+
+h1 {
+  color: #6d6e71;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+h1 span {
+  color: #00a79d;
+}
+
+p {
+  color: #939598;
+}
+
+button {
+  background-color: #00a79d;
+  border: none;
+  color: #fff;
+  padding: 8px 0;
+}
+
+input {
+  border: 1.2px solid #939598;
+  padding-left: 5px;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+  margin-top: 20px;
+  outline: none;
 }
 
 img {
@@ -19,7 +59,7 @@ img {
 }
 
 .input-container {
-  background-color: purple;
+  background-color: #e5f3f2;
   padding-top: 20px;
 
   display: flex;
@@ -32,24 +72,26 @@ img {
 }
 
 .input-container form {
+  width: 35%;
   display: flex;
   flex-direction: column;
 }
 
-.input-container form input {
-  margin-top: 20px;
-}
-
 .input-container form textarea {
+  border: 1px solid #939598;
+  padding-left: 5px;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
   margin-top: 20px;
+  /*height: 60px;*/
 }
 
 .input-container form button {
+  font-size: 1.1rem;
   margin-top: 20px;
 }
 
 .display-container {
-  background-color: steelblue;
   height: 100%;
   padding-top: 20px;
   flex: 1;
@@ -60,15 +102,69 @@ img {
   height: 600px;
 }
 
+.display-container form {
+  width: 35%;
+}
+
+.display-container form input {
+  width: 100%;
+}
+
 .display-container section {
-  width: 50vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .display-container article {
+  width: 35%;
   margin-top: 20px;
   border: 2px solid gray;
   padding: 10px;
+}
+
+.article-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.article-header h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.article-header img {
+
+}
+
+.article-header img:hover {
+  color: ;
+}
+
+.delete-button {
+  background-image: url('./images/delete.svg');
+  background-repeat: no-repeat;
+  width: 0;
+  height: 0;
+}
+
+.delete-button:hover {
+  background-image: url('./images/delete-hover.svg');
+  background-repeat: no-repeat;
+} 
+
+.quality {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 30%;
+  margin-top: 15px;
+}
+
+.quality p {
+  color: #6d6e71;
 }

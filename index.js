@@ -62,12 +62,16 @@ function displayIdeas(array) {
     ideaElement.setAttribute('class', 'idea-element');
     ideaElement.setAttribute('data-index', i);
     ideaElement.innerHTML = `
-      <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
-      <img src="./images/delete-hover.svg" alt="delete icon" id="delete-button">
+      <div class="article-header">
+        <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
+        <img src="./images/delete.svg" alt="delete icon" id="delete-button">
+      </div>
       <p contenteditable="true">${array[i].body}</p>
-      <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
-      <img src="./images/downvote.svg" alt="downvot icon" id="down-vote">
-      <p>quality: ${array[i].quality}</p>
+      <div class="quality">
+        <img src="./images/upvote.svg" alt="upvote icon" id="up-vote">
+        <img src="./images/downvote.svg" alt="downvot icon" id="down-vote">
+        <p>quality: ${array[i].quality}</p>
+      </div>
     `;
     ideaList.prepend(ideaElement);
   }
@@ -80,6 +84,13 @@ function removeIdea(e) {
     displayIdeas(ideasArray);
   }
 }
+
+// function buttonHover(e) {
+//   if (e.target.id === 'delete-button') {
+//     e.target.setAttribute('src', "./images/delete.svg")
+//   }
+// }
+// ideaList.addEventListener('mouseover', buttonHover)
 
 function upVote(e) {
   if (e.target.id === 'up-vote') {
