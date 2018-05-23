@@ -5,6 +5,7 @@ var ideaSubmit = document.querySelector('#idea-submit');
 var searchInput = document.querySelector('#search-input');
 var ideaList = document.querySelector('#idea-list');
 var deleteButton = document.querySelector('#idea-button');
+var alertArticle = document.querySelector('#alert');
 
 ideasArray = JSON.parse(localStorage.getItem('Ideas')) || [];
 
@@ -27,8 +28,8 @@ ideaList.addEventListener('click', removeIdea);
 ideaList.addEventListener('click', upVote);
 ideaList.addEventListener('click', downVote);
 ideaList.addEventListener('keyup', function(e) {
-  contentEditable(e, 'H2');
-  contentEditable(e, 'P');
+  setContentEditTarget(e, 'H2');
+  setContentEditTarget(e, 'P');
 });
 
 ideaList.addEventListener('keydown', function(e) {
@@ -49,15 +50,16 @@ function addIdea() {
   var body = bodyInput.value;
   var quality = 'swill';
   if (title.length === 0 && body.length === 0) {
-    alert('Ooooops!!! Looks like you need some inputs!');
+    alertArticle.innerHTML = `<p>Ooooops!!! Looks like you need some inputs!</p>`;
     return;
   } else if (title.length === 0) {
-    alert('Ooooops!!! Looks like you need a title!');
+    alertArticle.innerHTML = `<p>Ooooops!!! Looks like you need a title!</p>`;
     return;
   } else if (body.length === 0) {
-    alert('Ooooops!!! Looks like you left out a body!');
+    alertArticle.innerHTML = `<p>Ooooops!!! Looks like you left out a body!</p>`;
     return;
   }
+  alertArticle.innerHTML = '';
   var ideaObject = new Idea(id, title, body, quality);
   ideasArray.push(ideaObject);
   renderIdeaHTML(ideaObject, ideasArray.length - 1);
@@ -94,9 +96,10 @@ function removeIdea(e) {
   if (e.target.id === 'delete-button') {
     var confirmResponse = confirm('Are you sure you want to delete this item?');
     if (confirmResponse) {
-      ideasArray.splice(e.target.parentElement.parentElement.dataset.index, 1);
+      var index = e.target.parentElement.parentElement.dataset.index;
+      ideasArray.splice(index, 1);
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-      displayIdeas(ideasArray);
+      e.target.parentElement.parentElement.remove();
     }
   }
 }
@@ -104,10 +107,11 @@ function removeIdea(e) {
 function upVote(e) {
   if (e.target.id === 'up-vote') {
     var index = e.target.parentElement.parentElement.dataset.index;
-    if (ideasArray[index].quality === 'swill') {
-      ideasArray[index].quality = 'plausible';
-    } else if (ideasArray[index].quality === 'plausible') {
-      ideasArray[index].quality = 'genius';
+    var idea = ideasArray[index];
+    if (idea.quality === 'swill') {
+      idea.quality = 'plausible';
+    } else if (idea.quality === 'plausible') {
+      idea.quality = 'genius';
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
@@ -117,20 +121,21 @@ function upVote(e) {
 function downVote(e) {
   if (e.target.id === 'down-vote') {
     var index = e.target.parentElement.parentElement.dataset.index;
-    if (ideasArray[index].quality === 'genius') {
-      ideasArray[index].quality = 'plausible';
-    } else if (ideasArray[index].quality === 'plausible') {
-      ideasArray[index].quality = 'swill';
+    var idea = ideasArray[index];
+    if (idea.quality === 'genius') {
+      idea.quality = 'plausible';
+    } else if (idea.quality === 'plausible') {
+      idea.quality = 'swill';
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
   }
 }
 
-var editIndex;
+var editTitleIndex;
 var editBodyIndex;
 
-function contentEditable(e, nodeName) {
+function setContentEditTarget(e, nodeName) {
   if (e.target.nodeName === nodeName) {
     editTitleIndex = e.target.parentElement.parentElement.dataset.index;
     editBodyIndex = e.target.parentElement.dataset.index;
@@ -138,19 +143,18 @@ function contentEditable(e, nodeName) {
 }
 
 function saveContentEdit(e) {
-  console.log(e.target.nodeName);
   if (e.target.nodeName === 'H2') {
     if (e.target.innerText !== ideasArray[editTitleIndex].title) {
       ideasArray[editTitleIndex].title = e.target.innerText;
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+      displayIdeas(ideasArray);
     }
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
   } else if (e.target.nodeName === 'P') {
     if (e.target.innerText !== ideasArray[editBodyIndex].body) {
       ideasArray[editBodyIndex].body = e.target.innerText;
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+      displayIdeas(ideasArray);
     }
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
   }
 }
 
