@@ -17,20 +17,20 @@
       <h1>
         <span>idea</span>box
       </h1>
-      <form id="idea-form">
+      <form id="idea-form" class="idea-form">
         <input type="text" id="title-input" aria-label="idea title input" placeholder="Title" autocomplete="off">
         <textarea type="text" id="body-input" aria-label="idea body input" rows="1" placeholder="Body"></textarea>
-        <button id="idea-submit">save</button>
+        <button aria-label="idea submit button" id="idea-submit">save</button>
       </form>
-      <article class="alert">
+      <article id="alert" class="alert">
 
       </article>
     </section>
     <section class="display-container">
-      <form id="search-form">
-        <input type="text" id="search-input" placeholder="Search" autocomplete="off">
+      <form id="search-form" class="search-form">
+        <input type="text" id="search-input" aria-label="search input" placeholder="Search" autocomplete="off">
       </form>
-      <section id="idea-list">
+      <section id="idea-list" class="idea-list">
       </section>
     </section>
   </main>

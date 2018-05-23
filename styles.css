@@ -42,6 +42,11 @@ button {
   color: #fff;
 }
 
+form,
+article {
+  width: 45%;
+}
+
 input {
   margin-top: 20px;
   padding-left: 5px;
@@ -59,6 +64,8 @@ input {
   height: auto;
 }
 
+/* Input Form Section
+========================================================================== */
 .input-container {
   display: flex;
   flex-direction: column;
@@ -66,35 +73,41 @@ input {
   justify-content: center;
 
   padding-top: 20px;
-  height: 300px;
+  height: 350px;
   padding-bottom: 30px;
 
   background-color: #e5f3f2;
 }
 
-.input-container form {
+.idea-form {
   display: flex;
   flex-direction: column;
-
-  width: 45%;
 }
 
-.input-container form textarea {
+.idea-form textarea {
   margin-top: 20px;
   padding-left: 5px;
-  
+
   font-size: 1.1rem;
   line-height: 1.5rem;
   outline: none;
   border: 1px solid #939598;
 }
 
-.input-container form button {
+.idea-form button {
   margin-top: 20px;
 
   font-size: 1.1rem;
 }
 
+.alert p {
+  margin-top: 20px;
+  color: crimson;
+  text-align: center;
+}
+
+/* Display Section
+========================================================================== */
 .display-container {
   flex: 1;
 
@@ -106,15 +119,11 @@ input {
   padding-top: 20px;
 }
 
-.display-container form {
-  width: 45%;
-}
-
-.display-container form input {
+.search-form input {
   width: 100%;
 }
 
-.display-container section {
+.idea-list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,15 +131,14 @@ input {
   width: 100%;
 }
 
-.display-container article {
+.idea-element {
   margin-top: 20px;
   padding: 10px 0;
-  width: 45%;
-  
+
   border-bottom: 2px solid #d1d3d4;
 }
 
-.display-container article > p {
+.idea-element > p {
   margin-top: 15px;
 }
 
@@ -170,7 +178,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  
+
   margin-top: 15px;
   height: 40px;
   width: 40%;
@@ -180,7 +188,6 @@ input {
   margin-left: 0.8rem;
   color: #6d6e71;
 }
-
 
 .up-vote {
   background-image: url('./images/upvote.svg');
@@ -199,18 +206,12 @@ input {
   background-image: url('./images/downvote-hover.svg');
 }
 
-
-
+/* Media Queries
+========================================================================== */
 @media only screen and (max-width: 1100px) {
-  .input-container form {
-    width: 60%;
-  }
-
-  .display-container form {
-    width: 60%;
-  }
-
-  .display-container article {
+  form,
+  article,
+  .alert {
     width: 60%;
   }
 
@@ -221,53 +222,45 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
-  .input-container {
-    height: 70vh;
-  }
-
-  .input-container form {
-    width: 75%;
-  }
-
-  .input-container form textarea {
-    height: 75px;
-  }
-
-  .quality p {
-    font-size: .87rem;
-  }
-
-  .display-container form  {
-    width: 75%;
-  }
-
-  .display-container article {
+  form,
+  article,
+  .alert {
     width: 75%;
   }
 
   input {
     margin-top: 2rem;
+  }
+
+  .idea-form textarea {
+    height: 80px;
+  }
+
+  .alert p {
+    text-align: left;
+  }
+
+  .quality p {
+    font-size: 0.87rem;
   }
 }
 
 @media only screen and (max-width: 350px) {
+  form,
+  article,
+  .alert {
+    width: 87%;
+  }
+
   .input-container {
-    height: 70vh;
-  }
-
-  .input-container form {
-    width: 87%;
-  }
-
-  .display-container form  {
-    width: 87%;
-  }
-
-  .display-container article {
-    width: 87%;
+    padding-bottom: 10px;
   }
 
   input {
     margin-top: 2rem;
+  }
+
+  .display-container {
+    padding-top: 0;
   }
 }
