@@ -158,7 +158,6 @@ input {
 .quality {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 40px;
   width: 40%;
   margin-top: 15px;
@@ -182,6 +181,7 @@ input {
 }
 
 .quality p {
+  margin: 2rem;
   color: #6d6e71;
 }
 
