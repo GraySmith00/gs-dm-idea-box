@@ -158,9 +158,15 @@ input {
 .quality {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   height: 40px;
   width: 40%;
   margin-top: 15px;
+}
+
+.quality p {
+  margin-left: 0.8rem;
+  color: #6d6e71;
 }
 
 
@@ -173,6 +179,7 @@ input {
 }
 
 .down-vote {
+  margin-left: 0.8rem;
   background-image: url('./images/downvote.svg');
 }
 
@@ -180,12 +187,9 @@ input {
   background-image: url('./images/downvote-hover.svg');
 }
 
-.quality p {
-  margin: 2rem;
-  color: #6d6e71;
-}
 
-@media only screen and (max-width: 1000px) {
+
+@media only screen and (max-width: 1100px) {
   .input-container form {
     width: 60%;
   }
@@ -202,14 +206,6 @@ input {
     justify-content: flex-start;
     width: 100%;
   }
-
-  .quality p {
-    margin: 1rem;
-  }
-
-  .up-vote {
-    margin-right: 1rem;
-  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -223,10 +219,6 @@ input {
 
   .input-container form textarea {
     height: 75px;
-  }
-
-  .up-vote {
-    margin-right: .2rem;
   }
 
   .quality p {
@@ -253,16 +245,6 @@ input {
 
   .input-container form {
     width: 87%;
-  }
-
-  .input-container form textarea {
-    height: 75px;
-  }
-  .up-vote {
-    margin-right: .2rem;
-  }
-  .quality p {
-    font-size: .87rem;
   }
 
   .display-container form  {
