@@ -2,6 +2,7 @@ var ideaForm = document.querySelector('#idea-form');
 var titleInput = document.querySelector('#title-input');
 var bodyInput = document.querySelector('#body-input');
 var ideaSubmit = document.querySelector('#idea-submit');
+var searchForm = document.querySelector('#search-form');
 var searchInput = document.querySelector('#search-input');
 var ideaList = document.querySelector('#idea-list');
 var deleteButton = document.querySelector('#idea-button');
@@ -115,6 +116,7 @@ function upVote(e) {
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
+    searchForm.reset();
   }
 }
 
@@ -129,6 +131,7 @@ function downVote(e) {
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     displayIdeas(ideasArray);
+    searchForm.reset();
   }
 }
 
