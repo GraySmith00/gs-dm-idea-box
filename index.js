@@ -60,31 +60,34 @@ function addIdea() {
   }
   var ideaObject = new Idea(id, title, body, quality);
   ideasArray.push(ideaObject);
-
-  displayIdeas(ideasArray);
+  renderIdeaHTML(ideaObject, ideasArray.length - 1);
   localStorage.setItem('Ideas', JSON.stringify(ideasArray));
 }
 
 function displayIdeas(array) {
   ideaList.innerHTML = '';
-  for (var i = 0; i < array.length; i++) {
-    var ideaElement = document.createElement('article');
-    ideaElement.setAttribute('class', 'idea-element');
-    ideaElement.setAttribute('data-index', i);
-    ideaElement.innerHTML = `
+  array.forEach(function(idea, i) {
+    renderIdeaHTML(idea, i);
+  });
+}
+
+function renderIdeaHTML(object, i) {
+  var ideaElement = document.createElement('article');
+  ideaElement.setAttribute('class', 'idea-element');
+  ideaElement.setAttribute('data-index', i);
+  ideaElement.innerHTML = `
       <header class="article-header">
-        <h2 contenteditable="true" class="idea-title">${array[i].title}</h2>
+        <h2 contenteditable="true" class="idea-title">${object.title}</h2>
         <button id="delete-button" class="icon delete-button"></button>
       </header>
-      <p contenteditable="true" class="idea-body">${array[i].body}</p>
+      <p contenteditable="true" class="idea-body">${object.body}</p>
       <div class="quality">
         <button class="icon up-vote" id="up-vote"></button>
         <button class="icon down-vote" id="down-vote"></button>
-        <p>quality: ${array[i].quality}</p>
+        <p>quality: ${object.quality}</p>
       </div>
     `;
-    ideaList.prepend(ideaElement);
-  }
+  ideaList.prepend(ideaElement);
 }
 
 function removeIdea(e) {
