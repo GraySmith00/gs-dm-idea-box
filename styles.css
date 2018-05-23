@@ -5,8 +5,9 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
   margin: 0;
+
+  font-family: 'Open Sans', sans-serif;
   font-size: 20px;
 }
 
@@ -34,70 +35,75 @@ p {
 }
 
 button {
+  padding: 8px 0;
+
   background-color: #00a79d;
   border: none;
   color: #fff;
-  padding: 8px 0;
 }
 
 input {
-  border: 1.2px solid #939598;
+  margin-top: 20px;
   padding-left: 5px;
+
+  border: 1.2px solid #939598;
   font-size: 1.1rem;
   line-height: 1.6rem;
-  margin-top: 20px;
   outline: none;
 }
 
 .page-container {
   display: flex;
   flex-direction: column;
+
   height: auto;
 }
 
 .input-container {
-  background-color: #e5f3f2;
-  padding-top: 20px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
+  padding-top: 20px;
   height: 300px;
   padding-bottom: 30px;
+
+  background-color: #e5f3f2;
 }
 
 .input-container form {
-  width: 45%;
   display: flex;
   flex-direction: column;
+
+  width: 45%;
 }
 
 .input-container form textarea {
-  border: 1px solid #939598;
+  margin-top: 20px;
   padding-left: 5px;
+  
   font-size: 1.1rem;
   line-height: 1.5rem;
-  margin-top: 20px;
   outline: none;
-  /*height: 60px;*/
+  border: 1px solid #939598;
 }
 
 .input-container form button {
-  font-size: 1.1rem;
   margin-top: 20px;
+
+  font-size: 1.1rem;
 }
 
 .display-container {
-  height: 100%;
-  padding-top: 20px;
   flex: 1;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
   height: 600px;
+  padding-top: 20px;
 }
 
 .display-container form {
@@ -109,17 +115,19 @@ input {
 }
 
 .display-container section {
-  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 100%;
 }
 
 .display-container article {
-  width: 45%;
   margin-top: 20px;
-  border-bottom: 2px solid #d1d3d4;
   padding: 10px 0;
+  width: 45%;
+  
+  border-bottom: 2px solid #d1d3d4;
 }
 
 .display-container article > p {
@@ -130,20 +138,23 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   height: 40px;
 }
 
 .article-header h2 {
   font-weight: 700;
   font-size: 1.5rem;
+
   color: #6d6e71;
 }
 
 .icon {
-  background-repeat: no-repeat;
-  background-color: transparent;
   height: 28px;
   width: 28px;
+
+  background-repeat: no-repeat;
+  background-color: transparent;
   border: none;
 }
 
@@ -159,9 +170,10 @@ input {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  
+  margin-top: 15px;
   height: 40px;
   width: 40%;
-  margin-top: 15px;
 }
 
 .quality p {
@@ -179,8 +191,8 @@ input {
 }
 
 .down-vote {
-  margin-left: 0.8rem;
   background-image: url('./images/downvote.svg');
+  margin-left: 0.8rem;
 }
 
 .down-vote:hover {
