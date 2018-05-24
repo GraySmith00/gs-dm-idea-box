@@ -9,7 +9,7 @@ var deleteButton = document.querySelector('#idea-button');
 var alertArticle = document.querySelector('#alert');
 var sortButton = document.querySelector('#sort-button');
 
-ideasArray = JSON.parse(localStorage.getItem('Ideas')) || [];
+var ideasArray = JSON.parse(localStorage.getItem('Ideas')) || [];
 
 displayIdeas(ideasArray);
 
@@ -23,7 +23,6 @@ function Idea(id, title, body, quality) {
 ideaForm.addEventListener('submit', function(e) {
   e.preventDefault();
   addIdea();
-  this.reset();
 });
 
 ideaList.addEventListener('click', removeIdea);
@@ -68,6 +67,7 @@ function addIdea() {
   ideasArray.push(ideaObject);
   renderIdeaHTML(ideaObject, ideasArray.length - 1);
   localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+  ideaForm.reset();
 }
 
 function displayIdeas(array, array2 = [], array3 = []) {
@@ -193,8 +193,9 @@ function search() {
 
 function textMatch(property) {
   return (
-    property.substr(0, searchInput.value.length).toLowerCase() ===
-    searchInput.value.substr(0, searchInput.value.length).toLowerCase()
+    // property.substr(0, searchInput.value.length).toLowerCase() ===
+    // searchInput.value.substr(0, searchInput.value.length).toLowerCase()
+    property.includes(searchInput.value)
   );
 }
 
