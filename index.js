@@ -153,7 +153,6 @@ var editBodyIndex;
 
 function setContentEditTarget(e, nodeName) {
   if (e.target.nodeName === nodeName) {
-    console.log(e.target.parentElement.parentElement);
     editTitleIndex = e.target.parentElement.parentElement.dataset.index;
     editBodyIndex = e.target.parentElement.dataset.index;
   }
