@@ -43,7 +43,8 @@ button {
 }
 
 form,
-article {
+article,
+.sort-button {
   width: 45%;
 }
 
@@ -94,7 +95,8 @@ input {
   border: 1px solid #939598;
 }
 
-.idea-form button {
+.idea-form button,
+.sort-button {
   margin-top: 20px;
 
   font-size: 1.1rem;
@@ -211,7 +213,8 @@ input {
 @media only screen and (max-width: 1100px) {
   form,
   article,
-  .alert {
+  .alert,
+  .sort-button {
     width: 60%;
   }
 
@@ -224,7 +227,8 @@ input {
 @media only screen and (max-width: 600px) {
   form,
   article,
-  .alert {
+  .alert,
+  .sort-button {
     width: 75%;
   }
 
@@ -248,7 +252,8 @@ input {
 @media only screen and (max-width: 350px) {
   form,
   article,
-  .alert {
+  .alert,
+  .sort-button {
     width: 87%;
   }
 

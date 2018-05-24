@@ -7,6 +7,7 @@ var searchInput = document.querySelector('#search-input');
 var ideaList = document.querySelector('#idea-list');
 var deleteButton = document.querySelector('#idea-button');
 var alertArticle = document.querySelector('#alert');
+var sortButton = document.querySelector('#sort-button');
 
 ideasArray = JSON.parse(localStorage.getItem('Ideas')) || [];
 
@@ -45,6 +46,8 @@ ideaList.addEventListener('focusout', function(e) {
 
 searchInput.addEventListener('keyup', search);
 
+sortButton.addEventListener('click', sortByQuality);
+
 function addIdea() {
   var id = randomHash();
   var title = titleInput.value;
@@ -67,9 +70,15 @@ function addIdea() {
   localStorage.setItem('Ideas', JSON.stringify(ideasArray));
 }
 
-function displayIdeas(array) {
+function displayIdeas(array, array2 = [], array3 = []) {
   ideaList.innerHTML = '';
   array.forEach(function(idea, i) {
+    renderIdeaHTML(idea, i);
+  });
+  array2.forEach(function(idea, i) {
+    renderIdeaHTML(idea, i);
+  });
+  array3.forEach(function(idea, i) {
     renderIdeaHTML(idea, i);
   });
 }
@@ -111,12 +120,12 @@ function upVote(e) {
     var idea = ideasArray[index];
     if (idea.quality === 'swill') {
       idea.quality = 'plausible';
+      e.target.parentElement.childNodes[5].innerText = 'quality: plausible';
     } else if (idea.quality === 'plausible') {
       idea.quality = 'genius';
+      e.target.parentElement.childNodes[5].innerText = 'quality: genius';
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
-    searchForm.reset();
   }
 }
 
@@ -126,12 +135,12 @@ function downVote(e) {
     var idea = ideasArray[index];
     if (idea.quality === 'genius') {
       idea.quality = 'plausible';
+      e.target.parentElement.childNodes[5].innerText = 'quality: plausible';
     } else if (idea.quality === 'plausible') {
       idea.quality = 'swill';
+      e.target.parentElement.childNodes[5].innerText = 'quality: swill';
     }
     localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
-    searchForm.reset();
   }
 }
 
@@ -179,4 +188,20 @@ function textMatch(property) {
     property.substr(0, searchInput.value.length).toLowerCase() ===
     searchInput.value.substr(0, searchInput.value.length).toLowerCase()
   );
+}
+
+function sortByQuality() {
+  var geniusIdeas = [];
+  var plausibleIdeas = [];
+  var swillIdeas = [];
+  ideasArray.forEach(function(idea) {
+    if (idea.quality === 'genius') {
+      geniusIdeas.push(idea);
+    } else if (idea.quality === 'plausible') {
+      plausibleIdeas.push(idea);
+    } else {
+      swillIdeas.push(idea);
+    }
+  });
+  displayIdeas(swillIdeas, plausibleIdeas, geniusIdeas);
 }
