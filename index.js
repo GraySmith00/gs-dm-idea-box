@@ -75,12 +75,14 @@ function displayIdeas(array, array2 = [], array3 = []) {
   array.forEach(function(idea, i) {
     renderIdeaHTML(idea, i);
   });
-  array2.forEach(function(idea, i) {
-    renderIdeaHTML(idea, i);
-  });
-  array3.forEach(function(idea, i) {
-    renderIdeaHTML(idea, i);
-  });
+  if (array2.length || array3.length) {
+    array2.forEach(function(idea, i) {
+      renderIdeaHTML(idea, i);
+    });
+    array3.forEach(function(idea, i) {
+      renderIdeaHTML(idea, i);
+    });
+  }
 }
 
 function renderIdeaHTML(object, i) {
@@ -121,11 +123,13 @@ function upVote(e) {
     if (idea.quality === 'swill') {
       idea.quality = 'plausible';
       e.target.parentElement.childNodes[5].innerText = 'quality: plausible';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     } else if (idea.quality === 'plausible') {
       idea.quality = 'genius';
       e.target.parentElement.childNodes[5].innerText = 'quality: genius';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     }
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    console.log(idea);
   }
 }
 
@@ -136,11 +140,13 @@ function downVote(e) {
     if (idea.quality === 'genius') {
       idea.quality = 'plausible';
       e.target.parentElement.childNodes[5].innerText = 'quality: plausible';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     } else if (idea.quality === 'plausible') {
       idea.quality = 'swill';
       e.target.parentElement.childNodes[5].innerText = 'quality: swill';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     }
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
+    console.log(idea);
   }
 }
 
