@@ -163,13 +163,11 @@ function saveContentEdit(e) {
     if (e.target.innerText !== ideasArray[editTitleIndex].title) {
       ideasArray[editTitleIndex].title = e.target.innerText;
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-      displayIdeas(ideasArray);
     }
   } else if (e.target.nodeName === 'P') {
     if (e.target.innerText !== ideasArray[editBodyIndex].body) {
       ideasArray[editBodyIndex].body = e.target.innerText;
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-      displayIdeas(ideasArray);
     }
   }
 }
