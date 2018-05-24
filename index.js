@@ -7,6 +7,7 @@ var searchInput = document.querySelector('#search-input');
 var ideaList = document.querySelector('#idea-list');
 var deleteButton = document.querySelector('#idea-button');
 var alertArticle = document.querySelector('#alert');
+var sortButton = document.querySelector('#sort-button');
 
 ideasArray = JSON.parse(localStorage.getItem('Ideas')) || [];
 
@@ -45,6 +46,8 @@ ideaList.addEventListener('focusout', function(e) {
 
 searchInput.addEventListener('keyup', search);
 
+sortButton.addEventListener('click', sortByQuality);
+
 function addIdea() {
   var id = randomHash();
   var title = titleInput.value;
@@ -67,11 +70,19 @@ function addIdea() {
   localStorage.setItem('Ideas', JSON.stringify(ideasArray));
 }
 
-function displayIdeas(array) {
+function displayIdeas(array, array2 = [], array3 = []) {
   ideaList.innerHTML = '';
   array.forEach(function(idea, i) {
     renderIdeaHTML(idea, i);
   });
+  if (array2.length || array3.length) {
+    array2.forEach(function(idea, i) {
+      renderIdeaHTML(idea, i);
+    });
+    array3.forEach(function(idea, i) {
+      renderIdeaHTML(idea, i);
+    });
+  }
 }
 
 function renderIdeaHTML(object, i) {
@@ -111,12 +122,13 @@ function upVote(e) {
     var idea = ideasArray[index];
     if (idea.quality === 'swill') {
       idea.quality = 'plausible';
+      e.target.parentElement.childNodes[5].innerText = 'quality: plausible';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     } else if (idea.quality === 'plausible') {
       idea.quality = 'genius';
+      e.target.parentElement.childNodes[5].innerText = 'quality: genius';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     }
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
-    searchForm.reset();
   }
 }
 
@@ -126,12 +138,13 @@ function downVote(e) {
     var idea = ideasArray[index];
     if (idea.quality === 'genius') {
       idea.quality = 'plausible';
+      e.target.parentElement.childNodes[5].innerText = 'quality: plausible';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     } else if (idea.quality === 'plausible') {
       idea.quality = 'swill';
+      e.target.parentElement.childNodes[5].innerText = 'quality: swill';
+      localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     }
-    localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-    displayIdeas(ideasArray);
-    searchForm.reset();
   }
 }
 
@@ -147,16 +160,20 @@ function setContentEditTarget(e, nodeName) {
 
 function saveContentEdit(e) {
   if (e.target.nodeName === 'H2') {
-    if (e.target.innerText !== ideasArray[editTitleIndex].title) {
+    if (
+      ideasArray.length &&
+      e.target.innerText !== ideasArray[editTitleIndex].title
+    ) {
       ideasArray[editTitleIndex].title = e.target.innerText;
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-      displayIdeas(ideasArray);
     }
   } else if (e.target.nodeName === 'P') {
-    if (e.target.innerText !== ideasArray[editBodyIndex].body) {
+    if (
+      ideasArray.length &&
+      e.target.innerText !== ideasArray[editBodyIndex].body
+    ) {
       ideasArray[editBodyIndex].body = e.target.innerText;
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
-      displayIdeas(ideasArray);
     }
   }
 }
@@ -179,4 +196,20 @@ function textMatch(property) {
     property.substr(0, searchInput.value.length).toLowerCase() ===
     searchInput.value.substr(0, searchInput.value.length).toLowerCase()
   );
+}
+
+function sortByQuality() {
+  var geniusIdeas = [];
+  var plausibleIdeas = [];
+  var swillIdeas = [];
+  ideasArray.forEach(function(idea) {
+    if (idea.quality === 'genius') {
+      geniusIdeas.push(idea);
+    } else if (idea.quality === 'plausible') {
+      plausibleIdeas.push(idea);
+    } else {
+      swillIdeas.push(idea);
+    }
+  });
+  displayIdeas(swillIdeas, plausibleIdeas, geniusIdeas);
 }
