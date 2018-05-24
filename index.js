@@ -129,7 +129,6 @@ function upVote(e) {
       e.target.parentElement.childNodes[5].innerText = 'quality: genius';
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     }
-    console.log(idea);
   }
 }
 
@@ -146,7 +145,6 @@ function downVote(e) {
       e.target.parentElement.childNodes[5].innerText = 'quality: swill';
       localStorage.setItem('Ideas', JSON.stringify(ideasArray));
     }
-    console.log(idea);
   }
 }
 
